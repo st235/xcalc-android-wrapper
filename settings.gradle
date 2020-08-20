@@ -1,0 +1,2 @@
+include ':app', ':xcalc-android-wrapper'
+rootProject.name = "Xcalc-Android"
