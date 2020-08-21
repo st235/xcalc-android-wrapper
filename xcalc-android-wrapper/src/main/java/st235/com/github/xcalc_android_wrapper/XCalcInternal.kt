@@ -7,6 +7,11 @@ internal object XCalcInternal {
     }
 
     @JvmStatic
-    external fun evaluate(input: String): String
+    fun evaluate(angleUnits: AngleUnits, input: String): String {
+        return evaluate(angleUnits.id, input)
+    }
+
+    @JvmStatic
+    external fun evaluate(angleUnits: Int, input: String): String
 
 }
