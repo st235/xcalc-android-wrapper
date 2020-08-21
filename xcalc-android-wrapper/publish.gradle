@@ -11,9 +11,6 @@ artifacts {
     archives sourcesJar
 }
 
-Properties properties = new Properties()
-properties.load( new FileInputStream("local.properties"))
-
 // Bintray
 bintray {
     user = project.hasProperty('bintrayUser') ? project.getProperty('bintrayUser') : System.getenv('BINTRAY_USER')
