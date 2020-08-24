@@ -37,7 +37,13 @@ P.S.: Check out latest version code in badge at the top of this page.
 
 ```kotlin
         val calc = XCalc(angleUnits = AngleUnits.DEG)
-        Log.d("XCalcAndroid", calc.evaluate("...expression goes here"))
+        val result = calc.evaluate("expression goes here")
+        
+        if (result.calculationStatus == CalculationStatus.OK) {
+            Log.d("XCalc", result.output)
+        } else {
+            Log.e("XCalc", result.calculationStatus.name)
+        }
 ```
 
 ## Screen

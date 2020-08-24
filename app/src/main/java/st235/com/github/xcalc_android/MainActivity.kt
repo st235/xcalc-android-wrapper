@@ -1,11 +1,13 @@
 package st235.com.github.xcalc_android
 
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import st235.com.github.xcalc_android_wrapper.AngleUnits
+import st235.com.github.xcalc_android_wrapper.CalculationStatus
 import st235.com.github.xcalc_android_wrapper.XCalc
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +35,8 @@ class MainActivity : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_GO) {
                 val input = inputField.text.toString()
                 inputField.setText("")
-                val calcResult = CalcInfo(input, calc.evaluate(input))
+                val result = calc.evaluate(input)
+                val calcResult = CalcInfo(input, String.format("%s: %s", result.calculationStatus.name, result.output))
                 adapter.add(calcResult)
 
                 return@setOnEditorActionListener true

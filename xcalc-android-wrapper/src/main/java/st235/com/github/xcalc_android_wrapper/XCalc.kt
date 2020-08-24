@@ -12,19 +12,28 @@ class XCalc(
     private val backgroundThreadMarshaller: ThreadMarshaller = BackgroundThreadMarshaller()
 
     fun changeAngleUnits(angleUnits: AngleUnits) {
-        this.angleUnits = angleUnits;
+        this.angleUnits = angleUnits
     }
 
-    fun evaluate(input: String): String {
-        return XCalcInternal.evaluate(angleUnits, input)
+    fun getAngleUnits(): AngleUnits {
+        return angleUnits
     }
 
-    fun evaluateAsync(input: String, callback: (output: String) -> Unit) {
+    fun evaluate(input: String): CalculationResult {
+        return XCalcInternal.evaluate(angleUnits, input).toCalculationResult()
+    }
+
+    fun evaluateAsync(input: String, onSuccess: (output: String) -> Unit, onError: ((error: CalculationStatus) -> Unit)? = null) {
         backgroundThreadMarshaller.post(Runnable {
-            val output = XCalcInternal.evaluate(angleUnits, input)
+            val result = XCalcInternal.evaluate(angleUnits, input).toCalculationResult()
 
             mainThreadMarshaller.post(Runnable {
-                callback(output)
+                val output = result.output
+                if (output != null && result.calculationStatus == CalculationStatus.OK) {
+                    onSuccess(output)
+                } else {
+                    onError?.invoke(result.calculationStatus)
+                }
             })
         })
     }
