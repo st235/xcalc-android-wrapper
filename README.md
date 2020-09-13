@@ -48,7 +48,7 @@ P.S.: Check out latest version code in badge at the top of this page.
 
 ## Screen
 
-<img src="https://raw.githubusercontent.com/st235/xcalc-android-wrapper/master/images/sample.jpeg" width="270" height="480">
+<img src="/images/sample.jpeg" width="270" height="480">
 
 ### License
 
